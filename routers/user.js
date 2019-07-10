@@ -30,4 +30,6 @@
             res.send({code:200,msg:'reg success'});
          }
      });
- })
+ });
+ //导出路由器
+module.exports=router;
