@@ -6,10 +6,6 @@
 请求方式：post  
 请求示例：http://127.0.0.1:8080/user/reg  
 请求参数说明：  
-First Header | Second Header | Third Header
------------- | ------------- | ------------
-Content Cell | Content Cell  | Content Cell
-Content Cell | Content Cell  | Content Cell
 
 | 名称    | 必填 |   类型 |   说明   |
 |---------|-----:|-------:|:--------:|
