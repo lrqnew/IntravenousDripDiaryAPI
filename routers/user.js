@@ -23,13 +23,42 @@
          return;
      }
      //执行sql语句
-     pool.query('insert into user set ?',[obj],function(err,result){
+     pool.query('insert into user set ?', [obj], function (err, result) {
          if (err) throw err;
          //判断是否插入成功
-         if(result.affectedRows>0){
-            res.send({code:200,msg:'reg success'});
+         if (result.affectedRows > 0) {
+             res.send({
+                 code: 200,
+                 msg: 'reg success'
+             });
          }
      });
  });
+ //用户登录
+ router.post('/login', function (req, res) {
+     var obj = req.body;
+     if (!obj.email) {
+         res.send({
+             code: 401,
+             msg: 'email require'
+         });
+         return;
+     }
+     if (!obj.userPwd) {
+         res.send({
+             code: 402,
+             msg: 'userPwd required'
+         });
+         return;
+     }
+     pool.query('select userId from user where email=? and userPwd=?',[obj.email,obj.userPwd],function(err,result){
+         if(err) throw err;
+         if(result.length>0){
+            res.send({code:200,msg:'login success'});
+         }else{
+            res.send({code:301,msg:'login error'});
+         }
+     })
+ });
  //导出路由器
-module.exports=router;
+ module.exports = router;
