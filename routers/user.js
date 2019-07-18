@@ -60,5 +60,22 @@
          }
      })
  });
+ //查询邮箱
+ router.get('/selectMail',function(req,res){
+     var obj=req.query;
+     console.log(obj);
+     if(!obj.email){
+        res.send({code:401,msg:'email required'});
+        return;
+     }
+     pool.query('select email from user where email=?',[obj.email],function(err,result){
+        if(err) throw err;
+        if(result.length>0){
+            res.send({code:200,msg:'email already exists'})
+        }else{
+            res.send({code:401,msg:'email not exists'})
+        }
+     });
+ })
  //导出路由器
  module.exports = router;
