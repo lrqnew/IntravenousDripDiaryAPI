@@ -3,6 +3,8 @@
  const pool = require('../pool');
  //创建路由器对象
  var router = express.Router();
+ //引入jwt
+ var jwt = require("jsonwebtoken");
  //用户注册
  router.post('/reg', function (req, res) {
      //获取post请求的数据
@@ -54,7 +56,12 @@
      pool.query('select userId from user where email=? and userPwd=?',[obj.email,obj.userPwd],function(err,result){
          if(err) throw err;
          if(result.length>0){
-            res.send({code:200,msg:'login success'});
+            let content=obj;//要生成token的主体信息
+            let secretOrPrivateKey="lrq"; // 这是加密的key（密钥）
+            let authToken=jwt.sign(content,secretOrPrivateKey,{
+                expiresIn : 60*60*24// 授权时效24小时
+            });
+            res.send({code:200,msg:'login success',token: authToken});
          }else{
             res.send({code:301,msg:'login error'});
          }
@@ -63,7 +70,6 @@
  //查询邮箱
  router.get('/selectMail',function(req,res){
      var obj=req.query;
-     console.log(obj);
      if(!obj.email){
         res.send({code:401,msg:'email required'});
         return;
