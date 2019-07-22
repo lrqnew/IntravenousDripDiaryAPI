@@ -61,7 +61,7 @@
             let authToken=jwt.sign(content,secretOrPrivateKey,{
                 expiresIn : 60*60*24// 授权时效24小时
             });
-            res.send({code:200,msg:'login success',token: authToken});
+            res.send({code:200,msg:'login success',email:obj.email,token: authToken});
          }else{
             res.send({code:301,msg:'login error'});
          }
@@ -77,9 +77,9 @@
      pool.query('select email from user where email=?',[obj.email],function(err,result){
         if(err) throw err;
         if(result.length>0){
-            res.send({code:200,msg:'email already exists'})
+            res.send({code:401,msg:'email already exists'})
         }else{
-            res.send({code:401,msg:'email not exists'})
+            res.send({code:200,msg:'email not exists'})
         }
      });
  })
