@@ -57,8 +57,7 @@
          if(err) throw err;
          if(result.length>0){
             let content=obj;//要生成token的主体信息
-            let secretOrPrivateKey="lrq"; // 这是加密的key（密钥）
-            let authToken=jwt.sign(content,secretOrPrivateKey,{
+            let authToken=jwt.sign(content,"lrqnew",{
                 expiresIn : 60*60*24// 授权时效24小时
             });
             res.send({code:200,msg:'login success',email:obj.email,token: authToken});

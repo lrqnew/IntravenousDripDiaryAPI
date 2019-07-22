@@ -6,7 +6,7 @@ const bodyParser = require('body-parser');
 //引入跨域插件
 var cors = require('cors');
 //引入jwt
-var expressJwt = require("express-jwt");
+ var expressJwt = require("express-jwt");
 
 var app = express();
 app.listen(8081);
@@ -26,10 +26,10 @@ app.use(cors({
 
 // jwt中间件
 app.use(expressJwt({
-    secret: "secret" //加密密钥，可换
+    secret: "lrqnew" //加密密钥，可换
   })
   .unless({
-    path: ["/user/login", "/user/selectMail","/user/reg"] //添加不需要token的接口
+    path: ["/user/login","/user/reg"] //添加不需要token的接口
   })
 );
 
@@ -38,6 +38,17 @@ app.use(function (err, req, res, next) {
   if (err.name === "UnauthorizedError") {
     res.status(401).send(err);
   }
+  console.log(req.body)
+  var token = req.body.token;
+  console.log(token);
+    // //用 加密密钥 解密，获得信息，包括生成及失效日期（如果设置了失效时间）
+    // jwt.verify(token, "secret", function(err, decoded) {
+    //     if (err) {
+    //         res.status(200).json(err)
+    //     } else {
+    //         res.status(200).json(decoded);
+    //     }
+    // })
 });
 
 
