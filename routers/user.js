@@ -58,7 +58,7 @@
          if(result.length>0){
             let content=obj;//要生成token的主体信息
             let authToken=jwt.sign(content,"lrqnew",{
-                expiresIn : 60*60*24// 授权时效24小时
+                expiresIn : 60// 授权时效2小时
             });
             res.send({code:200,msg:'login success',email:obj.email,token: authToken});
          }else{
