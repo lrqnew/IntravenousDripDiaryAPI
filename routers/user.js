@@ -53,14 +53,14 @@
          });
          return;
      }
-     pool.query('select userId from user where email=? and userPwd=?',[obj.email,obj.userPwd],function(err,result){
+     pool.query('select userId,userName from user where email=? and userPwd=?',[obj.email,obj.userPwd],function(err,result){
          if(err) throw err;
          if(result.length>0){
             let content=obj;//要生成token的主体信息
             let authToken=jwt.sign(content,"lrqnew",{
                 expiresIn : 60// 授权时效2小时
             });
-            res.send({code:200,msg:'login success',email:obj.email,token: authToken});
+            res.send({code:200,msg:'login success',userName:result[0].userName,email:obj.email,token: authToken});
          }else{
             res.send({code:301,msg:'login error'});
          }
