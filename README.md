@@ -16,8 +16,11 @@
 
 | 名称     |   类型 |   说明   |
 |:---------|:-------:|:--------:|
-| code |int |  返回码<br>200-注册成功<br>401-邮箱为空 <br>402-密码为空  |
+| code |int |  返回码<br>200-注册成功<br>401-邮箱为空 <br>402-密码为空 |
 | msg  | string | 返回说明 |
+| userName  | string | 用户名 |
+| email  | string | 邮箱 |
+| token  | string | token值 |
 
 Json返回示例
 { "code":"200", "msg":"reg success" }
