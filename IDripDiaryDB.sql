@@ -24,7 +24,7 @@ CREATE TABLE diary(
   dContent TEXT,#内容
   dTag VARCHAR(100),#日记标签
   privacy INT,#隐私  1-公开  0-私密
-  WriteDate DATE,#发布日期
+  writeDate DATE,#发布日期
   userId INT NOT NULL,
   FOREIGN KEY(userId) REFERENCES user(userId)
 );

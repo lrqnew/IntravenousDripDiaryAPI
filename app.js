@@ -1,6 +1,7 @@
 const express = require('express');
 //引入路由器模块
 const userRouter = require('./routers/user');
+const diaryRouter=require('./routers/diary');
 //引入body-parser中间件
 const bodyParser = require('body-parser');
 //引入跨域插件
@@ -41,3 +42,4 @@ app.use(function (err, req, res, next) {
 
 //使用路由器
 app.use('/api/user', userRouter);
+app.use('/api/diary', diaryRouter);

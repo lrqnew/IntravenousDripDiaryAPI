@@ -65,3 +65,29 @@ Json返回示例
 
 Json返回示例
 { "code":"200", "msg":"email not exists" }
+
+## 二、日记模块 
+### 2.1 发布日记
+接口地址：/api/diary/writeDiary  
+返回格式：json  
+请求方式：post  
+请求示例：http://127.0.0.1:8080/api/diary/writeDiary  
+请求参数说明：  
+
+| 名称    | 必填 |   类型 |   说明   |
+|:---------|:-----:|:-------:|:--------:|
+| dContent   |   是 | string |   日记内容   |
+| dTitle |   是 | string | 日记标题 |
+| dTag   |   否 | string |   日记标签   |
+| privacy |   是 | string | 日记权限 |
+| userId |   是 | string | 用户ID |
+
+返回参数  
+
+| 名称     |   类型 |   说明   |
+|:---------|:-------:|:--------:|
+| code |int |  返回码<br>200-写日记成功<br>201-今天已写日记 <br>401-日记内容为空 |
+| msg  | string | 返回说明 |
+
+Json返回示例
+{ "code":"200", "msg":"write success" }
