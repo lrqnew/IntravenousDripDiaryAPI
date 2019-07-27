@@ -26,7 +26,7 @@ app.use(cors({
 app.use(expressJwt({
     secret: "lrqnew",  //加密密钥，可换
   }).unless({
-    path: ["/user/login","/user/reg","/user/selectMail"] //添加不需要token的接口
+    path: ["/api/user/login","/api/user/reg","/api/user/selectMail"] //添加不需要token的接口
   })
 );
 
@@ -40,4 +40,4 @@ app.use(function (err, req, res, next) {
 
 
 //使用路由器
-app.use('/user', userRouter);
+app.use('/api/user', userRouter);

@@ -6,7 +6,7 @@ DROP DATABASE IF EXISTS IDripDiaryDB;
 CREATE DATABASE IDripDiaryDB CHARSET=UTF8;
 #进入该数据库
 USE IDripDiaryDB;
-
+#用户表
 CREATE TABLE user(
   userId INT PRIMARY KEY AUTO_INCREMENT,
   userName  VARCHAR(32),
@@ -17,13 +17,14 @@ CREATE TABLE user(
   signs VARCHAR(100), #个性签名
   avatar VARCHAR(128)  #头像
 );
-
+#日记表
 CREATE TABLE diary(
   dId INT PRIMARY KEY AUTO_INCREMENT,
   dTitle VARCHAR(50), #标题
   dContent TEXT,#内容
   dTag VARCHAR(100),#日记标签
   privacy INT,#隐私  1-公开  0-私密
+  WriteDate DATE,#发布日期
   userId INT NOT NULL,
   FOREIGN KEY(userId) REFERENCES user(userId)
 );

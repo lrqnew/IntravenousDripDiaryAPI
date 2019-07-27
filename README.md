@@ -1,10 +1,10 @@
 # 点滴日记接口说明文档
 ## 一、用户模块 
 ### 1.1 用户注册
-接口地址：/user/reg  
+接口地址：/api/user/reg  
 返回格式：json  
 请求方式：post  
-请求示例：http://127.0.0.1:8080/user/reg  
+请求示例：http://127.0.0.1:8080/api/user/reg  
 请求参数说明：  
 
 | 名称    | 必填 |   类型 |   说明   |
@@ -25,10 +25,10 @@
 Json返回示例
 { "code":"200", "msg":"reg success" }
 ### 1.2 用户登录
-接口地址：/user/login  
+接口地址：/api/user/login  
 返回格式：json  
 请求方式：post  
-请求示例：http://127.0.0.1:8080/user/login  
+请求示例：http://127.0.0.1:8080/api/user/login  
 请求参数说明：  
 
 | 名称    | 必填 |   类型 |   说明   |
@@ -46,10 +46,10 @@ Json返回示例
 Json返回示例
 { "code":"200", "msg":"login success" }
 ### 1.3 查询邮箱是否已经存在
-接口地址：/user/selectMail  
+接口地址：/api/user/selectMail  
 返回格式：json  
 请求方式：get  
-请求示例：http://127.0.0.1:8080/user/selectMail  
+请求示例：http://127.0.0.1:8080/api/user/selectMail  
 请求参数说明：  
 
 | 名称    | 必填 |   类型 |   说明   |
