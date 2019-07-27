@@ -31,6 +31,6 @@ CREATE TABLE diary(
 #建议表
 CREATE TABLE advice(
   adId INT PRIMARY KEY AUTO_INCREMENT,
-  adContent VARCHAR(500),#建议内容
-)
+  adContent VARCHAR(500)#建议内容
+);
 insert into user values(NULL,'钢铁侠','12345',1,'1406107400@qq.com','2018-10-10','我是钢铁侠',NULL)
