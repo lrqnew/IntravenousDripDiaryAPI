@@ -36,7 +36,7 @@ app.use(expressJwt({
 app.use(function (err, req, res, next) {
   if (err.name === "UnauthorizedError") {
     // res.status(401).send({msg:'登录过期,请重新登录'});
-    res.status(200).send({msg:'登录过期,请重新登录'});
+    res.status(200).send({code:408,msg:'登录过期,请重新登录'});
   } 
 });
 
