@@ -74,7 +74,6 @@ router.get('/selectDiary', (req, res) => {
         sql += ` limit ?,?`;
         return query(sql, [output.pageSize * output.pno, output.pageSize]);
     }).then(result => {
-
         output.data = result;
         res.send(output);
     })
@@ -85,6 +84,22 @@ router.get('/diaryDetails',(req,res)=>{
     var sql=`select * from diary where userId=${obj.userId} and dId=${obj.dId}`;
     query(sql,[]).then(result=>{
        res.send(result);
+    })
+});
+//根据用户查询此用户的所有日记标签
+router.get('/diaryTags',(req,res)=>{
+    var obj=req.query;
+    var sql=`select dTag from diary where userId=${obj.userId}`;
+    query(sql,[]).then(result=>{
+        res.send(result);
+    })
+});
+//根据时间查询日记
+router.get('/dateDiary',(req,res)=>{
+    var obj=req.query;
+    var sql=`select * from diary where writeDate between ${obj.starDate} and ${obj.endDate}`;
+    query(sql,[]).then(result=>{
+        res.send(result);
     })
 })
 //导出路由器
