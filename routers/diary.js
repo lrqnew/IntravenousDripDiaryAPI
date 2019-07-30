@@ -111,7 +111,14 @@ router.delete('/delDiary',(req,res)=>{
             res.send({code:200,msg:'delete success'})
         }
     })
-
+});
+//根据标签和用户id模糊查询日记
+router.get('/SelectagDiary',(req,res)=>{
+    var obj=req.query;
+    var sql=`select * from diary where dTag like ? and userId=?`;
+    query(sql,[`%${obj.kwd}%`,obj.userId]).then(result=>{
+        res.send(result);
+    })
 })
 //导出路由器
 module.exports = router;
