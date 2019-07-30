@@ -21,7 +21,7 @@ app.use(bodyParser.json())
 //设置跨域
 app.use(cors({
   origin: ['http://localhost:8080'],
-  methods: ['GET', 'POST'],
+  methods: ['GET', 'POST','DELETE','PUT'],
   alloweHeaders: ['Content-Type', 'Authorization']
 }));
 // jwt中间件

@@ -35,7 +35,7 @@ router.post('/writeDiary', function (req, res) {
         return;
     }
     //执行sql语句
-    pool.query('select dId from diary where writeDate=?', [obj.writeDate], (err, result) => {
+    pool.query('select dId from diary where writeDate=? and userId=?', [obj.writeDate,obj.userId], (err, result) => {
         if (err) throw err;
         if (result.length > 0) {
             res.send({
@@ -67,7 +67,7 @@ router.get('/selectDiary', (req, res) => {
         pno: obj.pno || 0,
         data: []
     };
-    var sql = `select * from diary where userId=${obj.userId} order by writeDate  desc `;
+    var sql = `select * from diary where userId= ${obj.userId} order by writeDate  desc`;
     query(sql, []).then(result => {
         output.count = result.length;
         output.pageCount = Math.ceil(output.count / output.pageSize);
@@ -75,32 +75,43 @@ router.get('/selectDiary', (req, res) => {
         return query(sql, [output.pageSize * output.pno, output.pageSize]);
     }).then(result => {
         output.data = result;
-        res.send(output);
+            res.send(output);
     })
 });
 //根据日记id查询
 router.get('/diaryDetails',(req,res)=>{
     var obj=req.query;
-    var sql=`select * from diary where userId=${obj.userId} and dId=${obj.dId}`;
-    query(sql,[]).then(result=>{
+    var sql=`select * from diary where userId=? and dId=?`;
+    query(sql,[obj.userId,obj.dId]).then(result=>{
        res.send(result);
     })
 });
 //根据用户查询此用户的所有日记标签
 router.get('/diaryTags',(req,res)=>{
     var obj=req.query;
-    var sql=`select dTag from diary where userId=${obj.userId}`;
-    query(sql,[]).then(result=>{
+    var sql=`select dTag from diary where userId = ?`;
+    query(sql,[obj.userId]).then(result=>{
         res.send(result);
     })
 });
 //根据时间查询日记
 router.get('/dateDiary',(req,res)=>{
     var obj=req.query;
-    var sql=`select * from diary where writeDate between ${obj.starDate} and ${obj.endDate}`;
-    query(sql,[]).then(result=>{
+    var sql=`select * from diary where writeDate between ? and ? and userId=?`;
+    query(sql,[obj.startDate,obj.endDate,obj.userId]).then(result=>{
         res.send(result);
     })
+});
+//根据用户id和日记id删除日记
+router.delete('/delDiary',(req,res)=>{
+    var obj=req.query;
+    var sql=`delete from diary where dId=? and userId=?`;
+    query(sql,[obj.dId,obj.userId]).then(result=>{
+        if(result.affectedRows>=1){
+            res.send({code:200,msg:'delete success'})
+        }
+    })
+
 })
 //导出路由器
 module.exports = router;
