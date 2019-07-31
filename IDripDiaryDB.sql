@@ -13,7 +13,7 @@ CREATE TABLE user(
   userPwd VARCHAR(50),
   sex INT,
   email VARCHAR(30),#邮箱
-  birthday BIGINT,
+  birthday DATE,
   signs VARCHAR(100), #个性签名
   avatar VARCHAR(128)  #头像
 );

@@ -39,8 +39,6 @@ app.use(function (err, req, res, next) {
     res.status(200).send({code:408,msg:'登录过期,请重新登录'});
   } 
 });
-
-
 //使用路由器
 app.use('/api/user', userRouter);
 app.use('/api/diary', diaryRouter);
