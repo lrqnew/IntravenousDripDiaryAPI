@@ -22,6 +22,7 @@ app.use(bodyParser.json())
 app.use(cors({
   origin: ['http://localhost:8080'],
   methods: ['GET', 'POST','DELETE','PUT'],
+  // credentials:true,
   alloweHeaders: ['Content-Type', 'Authorization']
 }));
 // jwt中间件

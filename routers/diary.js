@@ -113,11 +113,30 @@ router.delete('/delDiary',(req,res)=>{
     })
 });
 //根据标签和用户id模糊查询日记
-router.get('/SelectagDiary',(req,res)=>{
+router.get('/selectagDiary',(req,res)=>{
     var obj=req.query;
     var sql=`select * from diary where dTag like ? and userId=?`;
     query(sql,[`%${obj.kwd}%`,obj.userId]).then(result=>{
         res.send(result);
+    })
+});
+//根据用户查询统计信息(字符数、日记总数、标签数)
+router.get('/totalDinfo',(req,res)=>{
+    var obj=req.query;
+    var output={
+        charCount:'',
+        diaryCount:'',
+        data:[]
+    };
+    var sql=`select sum(length(dContent)) s,count(dId) c FROM diary where userId=? `;
+    query(sql,[obj.userId]).then(result=>{
+        output.charCount=result[0].s;
+        output.diaryCount=result[0].c;
+        var sql=`select dTag from diary where userId=?`;
+        return query(sql,[obj.userId]);
+    }).then(result=>{
+        output.data=result;
+        res.send(output);
     })
 })
 //导出路由器

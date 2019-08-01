@@ -12,7 +12,10 @@
  router.post('/reg', function (req, res) {
      //获取post请求的数据
      var obj = req.body;
-     obj.userPwd=md5(obj.userPwd);
+     obj.regTime=new Date().toLocaleDateString();
+     var pwd=obj.userPwd;
+     var md5=crypto.createHash('md5');
+     obj.userPwd=md5.update(pwd).digest('hex');
      //验证每一项数据是否为空
      if (!obj.email) {
          res.send({
@@ -29,16 +32,16 @@
          return;
      }
      //执行sql语句
-    //  pool.query('insert into user set ?', [obj], function (err, result) {
-    //      if (err) throw err;
-    //      //判断是否插入成功
-    //      if (result.affectedRows > 0) {
-    //          res.send({
-    //              code: 200,
-    //              msg: 'reg success'
-    //          });
-    //      }
-    //  });
+     pool.query('insert into user set ?', [obj], function (err, result) {
+         if (err) throw err;
+         //判断是否插入成功
+         if (result.affectedRows > 0) {
+             res.send({
+                 code: 200,
+                 msg: 'reg success'
+             });
+         }
+     });
  });
  //用户登录
  router.post('/login', function (req, res) {
@@ -57,7 +60,10 @@
          });
          return;
      }
-     pool.query('select userId,email,userName,sex,birthday,signs from user where email=? and userPwd=?',[obj.email,obj.userPwd],function(err,result){
+     var pwd=obj.userPwd;
+     var md5=crypto.createHash('md5');
+     obj.userPwd=md5.update(pwd).digest('hex');
+     pool.query('select userId,email,userName,sex,birthday,signs,regTime from user where email=? and userPwd=?',[obj.email,obj.userPwd],function(err,result){
          if(err) throw err;
          var userInfo={};
          if(result.length>0){
@@ -96,6 +102,30 @@
           if(result.affectedRows>=1){
               res.send({code:200,msg:'update success'});
           }
+     })
+ });
+ //修改密码
+ router.put('/updatePwd',(req,res)=>{
+     var obj=req.body;
+     var md5=crypto.createHash('md5');
+     var oldPassword=md5.update(obj.oldPassword).digest('hex');
+     var sql=`select userId from user where userPwd=? and userId=?`;
+     query(sql,[oldPassword,obj.userId]).then(result=>{
+       
+         if(result.length>0){
+             var sql=`update user set userPwd=? where userId=?`;
+             var md5=crypto.createHash('md5');
+             var newPassword=md5.update(obj.userPwd).digest('hex');
+             return query(sql,[newPassword,obj.userId]).then(result=>{
+                 if(result.affectedRows>0){
+                     res.send({code:200,msg:'updatePwd success'});
+                 }else{
+                    res.send({code:401,msg:'updatePwd error'});
+                 }
+             });
+         }else{
+             res.send({code:'402',msg:'passworld error'});
+         }
      })
 
  })

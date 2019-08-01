@@ -16,6 +16,7 @@ CREATE TABLE user(
   birthday DATE,
   signs VARCHAR(100), #个性签名
   avatar VARCHAR(128)  #头像
+  regTime date,#注册时间
 );
 #日记表
 CREATE TABLE diary(
