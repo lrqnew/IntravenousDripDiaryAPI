@@ -111,7 +111,6 @@
      var oldPassword=md5.update(obj.oldPassword).digest('hex');
      var sql=`select userId from user where userPwd=? and userId=?`;
      query(sql,[oldPassword,obj.userId]).then(result=>{
-       
          if(result.length>0){
              var sql=`update user set userPwd=? where userId=?`;
              var md5=crypto.createHash('md5');
