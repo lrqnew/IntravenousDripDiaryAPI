@@ -32,7 +32,6 @@ app.use(expressJwt({
     path: ["/api/user/login","/api/user/reg","/api/user/selectMail"] //添加不需要token的接口
   })
 );
-
 // 未携带token请求接口会出错，触发这个
 app.use(function (err, req, res, next) {
   if (err.name === "UnauthorizedError") {
