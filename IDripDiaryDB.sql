@@ -1,4 +1,4 @@
-#设置客户端连接服务器端的编码
+﻿#设置客户端连接服务器端的编码
 SET NAMES UTF8;
 #丢弃数据库，如果存在
 DROP DATABASE IF EXISTS IDripDiaryDB;
@@ -15,8 +15,8 @@ CREATE TABLE user(
   email VARCHAR(30),#邮箱
   birthday DATE,
   signs VARCHAR(100), #个性签名
-  avatar VARCHAR(128)  #头像
-  regTime date,#注册时间
+  avatar VARCHAR(128),  #头像
+  regTime date #注册时间
 );
 #日记表
 CREATE TABLE diary(
@@ -35,4 +35,4 @@ CREATE TABLE advice(
   adContent VARCHAR(500),#建议内容,
   adTime DATE#建议日期
 );
-insert into user values(NULL,'钢铁侠','12345',1,'1406107400@qq.com','2018-10-10','我是钢铁侠',NULL)
+insert into user values(NULL,'钢铁侠','12345',1,'1406107400@qq.com','2018-10-10','我是钢铁侠',NULL,'2018-10-10');

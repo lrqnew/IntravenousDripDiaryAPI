@@ -10,7 +10,7 @@ var cors = require('cors');
 //引入jwt
 var expressJwt = require("express-jwt");
 var app = express();
-app.listen(8081);
+app.listen(3000);
 //托管静态资源到public目录下
 app.use(express.static('public'));
 //使用body-parser中间件
