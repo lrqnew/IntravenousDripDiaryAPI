@@ -126,7 +126,7 @@ router.get('/totalDinfo',(req,res)=>{
     var output={
         charCount:'',
         diaryCount:'',
-        data:[]
+        data:[] 
     };
     var sql=`select sum(length(dContent)) s,count(dId) c FROM diary where userId=? `;
     query(sql,[obj.userId]).then(result=>{

@@ -4,6 +4,6 @@ module.exports=function(sql,params){
     pool.query(sql,params,(error,result)=>{
       if(error) err(error);
       else open(result); 
-    })
+    }) 
   })
 }
