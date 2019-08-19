@@ -138,6 +138,29 @@ router.get('/totalDinfo',(req,res)=>{
         output.data=result;
         res.send(output);
     })
-})
+});
+//根据日记id和用户id修改日记内容
+router.put('/updateDiary', (req, res) => {
+    var obj = req.body;
+    if(obj.dTag.length==0){
+        obj.dTag="";
+    }else{
+        obj.dTag=obj.dTag.map((item)=>item).join(',');
+    }
+    var sql = `update diary set ? where dId=? and userId=?`;
+    query(sql, [obj,obj.dId,obj.userId]).then(result => {
+                if (result.affectedRows > 0) {
+                    res.send({
+                        code: 200,
+                        msg: 'updateDiary success'
+                    });
+                } else {
+                    res.send({
+                        code: 401,
+                        msg: 'updateDiary error'
+                    });
+                }
+    })
+});
 //导出路由器
 module.exports = router;
