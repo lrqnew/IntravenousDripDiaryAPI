@@ -16,6 +16,7 @@
      var obj = req.body;
      obj.regTime = new Date().toLocaleDateString();
      var pwd = obj.userPwd;
+     obj.avatar='tx.png';
      var md5 = crypto.createHash('md5');
      obj.userPwd = md5.update(pwd).digest('hex');
      //验证每一项数据是否为空
